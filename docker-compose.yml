@@ -1,0 +1,52 @@
+services:
+    haproxy:
+      build: ./haproxy
+      links:
+        - ws_server1
+        - ws_server2
+        - ws_server3
+        - ws_server4
+      ports:
+       - "3000:80"
+    
+    ws_server1:
+      build: ./server
+      links:
+        - redis
+      expose:
+        - "3000"
+      environment:
+        - SERVER_NAME=ws_server1
+    
+    ws_server2:
+      build: ./server
+      links:
+        - redis
+      expose:
+        - "3000"
+      environment:
+        - SERVER_NAME=ws_server2
+    
+    ws_server3:
+      build: ./server
+      links:
+        - redis
+      expose:
+        - "3000"
+      environment:
+        - SERVER_NAME=ws_server3
+    
+    ws_server4:
+      build: ./server
+      links:
+        - redis
+      expose:
+        - "3000"
+      environment:
+        - SERVER_NAME=ws_server4
+    
+    redis:
+      image: redis:alpine
+      expose:
+        - "6379"
+    
